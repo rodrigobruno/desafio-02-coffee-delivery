@@ -35,12 +35,6 @@ interface HeaderContainerProps {
 
 export const HeaderContainer = styled.header<HeaderContainerProps>`
   background: ${(props) => props.theme.colors.background};
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
-  width: min(100%, 70rem);
 
   ${(props) =>
     props.$isHome &&
@@ -48,6 +42,13 @@ export const HeaderContainer = styled.header<HeaderContainerProps>`
       position: sticky;
       inset: 0;
     `}
+`
+
+export const HeaderContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 2rem;
 
   nav {
     display: flex;
