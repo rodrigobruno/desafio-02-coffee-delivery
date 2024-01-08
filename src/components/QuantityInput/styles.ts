@@ -22,9 +22,13 @@ export const QuantityInputContainer = styled.div`
     cursor: pointer;
     line-height: 0;
 
-    &:hover {
+    &:not(:disabled):hover {
       color: ${(props) => props.theme.colors['purple-dark']};
       transition: background-color 0.2s;
+    }
+
+    &:disabled {
+      color: ${(props) => props.theme.colors['base-label']};
     }
   }
 `

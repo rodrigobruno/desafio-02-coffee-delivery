@@ -9,12 +9,19 @@ import {
   Badge,
 } from './styles'
 import { LayoutContainer } from '../../styles/layoutContainer'
+import { useContext } from 'react'
+import { OrderContext } from '../../contexts/OrderContext'
 
 interface HeaderProps {
   $isHome: boolean
 }
 
 export function Header({ $isHome }: HeaderProps) {
+  const { cart, order } = useContext(OrderContext)
+  const cartProductsQuantity = cart.length
+  const city =
+    order.city && order.district ? `${order.city}, ${order.state}` : ''
+
   return (
     <HeaderContainer $isHome={$isHome}>
       <LayoutContainer>
@@ -26,11 +33,13 @@ export function Header({ $isHome }: HeaderProps) {
           <nav>
             <UserLocation>
               <MapPin size={22} weight="fill" color="#8047F8" />
-              Porto Alegre, RS
+              {city}
             </UserLocation>
             <NavLink to="/checkout" title="Checkout">
               <ShoppingCart size={22} weight="fill" />
-              <Badge>1</Badge>
+              {cartProductsQuantity > 0 && (
+                <Badge>{cartProductsQuantity}</Badge>
+              )}
             </NavLink>
           </nav>
         </HeaderContent>

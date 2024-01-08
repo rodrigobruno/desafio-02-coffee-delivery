@@ -2,8 +2,29 @@ import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 import { LayoutContainer } from '../../styles/layoutContainer'
 import { OrderContainer, OrderInfos, OrderDatailsContainer } from './styles'
 import delivery from '../../assets/delivery.svg'
+import { useContext, useEffect } from 'react'
+import { OrderContext } from '../../contexts/OrderContext'
 
 export function Success() {
+  const { order, cleanCartContext } = useContext(OrderContext)
+
+  function paymentType() {
+    switch (order.paymentType) {
+      case 'credit':
+        return 'Cartão de credito'
+      case 'debit':
+        return 'Cartão de debito'
+      case 'money':
+        return 'Dinheiro'
+      default:
+        return ''
+    }
+  }
+
+  useEffect(() => {
+    cleanCartContext()
+  }, [])
+
   return (
     <LayoutContainer>
       <OrderContainer>
@@ -16,9 +37,12 @@ export function Success() {
                 <MapPin size={16} weight="fill" />
               </span>{' '}
               <p>
-                Entrega em <strong>Rua João Daniel Martinelli, 102</strong>
+                Entrega em{' '}
+                <strong>
+                  {order.street}, {order.number} {order.complement}
+                </strong>
                 <br />
-                Farrapos - Porto Alegre, RS
+                {order.district} - {order.city}, {order.state}
               </p>
             </li>
             <li>
@@ -38,7 +62,7 @@ export function Success() {
               <p>
                 Pagamento na entrega
                 <br />
-                <strong>Cartão de Crédito</strong>
+                <strong>{paymentType()}</strong>
               </p>
             </li>
           </OrderDatailsContainer>
